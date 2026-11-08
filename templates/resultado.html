@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Datos recibidos{% endblock %}
+
+{% block content %}
+<h2>Datos recibidos</h2>
+<p><strong>Nombre:</strong> {{ nombre }}</p>
+<p><strong>Email:</strong> {{ email }}</p>
+<p><strong>Edad:</strong> {{ edad }}</p>
+<p><strong>Carrera:</strong> {{ carrera }}</p>
+<p><strong>Comentarios:</strong> {{ comentarios if comentarios else '—' }}</p>
+
+<p><a href="{{ url_for('formulario') }}">Registrar otro usuario</a> |
+   <a href="{{ url_for('listado') }}">Ver listado de usuarios</a></p>
+{% endblock %}

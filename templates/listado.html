@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Listado de usuarios{% endblock %}
+
+{% block content %}
+<h2>Usuarios registrados ({{ usuarios|length }})</h2>
+
+{% if usuarios %}
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Edad</th>
+            <th>Carrera</th>
+            <th>Comentarios</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for u in usuarios %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ u.nombre }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.edad }}</td>
+            <td>{{ u.carrera }}</td>
+            <td>{{ u.comentarios if u.comentarios else '—' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No hay usuarios registrados todavía.</p>
+{% endif %}
+
+<p><a href="{{ url_for('formulario') }}">Registrar nuevo usuario</a></p>
+{% endblock %}
+
+

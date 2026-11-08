@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Registro de Usuarios{% endblock %}</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f6f9;
+            color: #2d3748;
+            min-height: 100vh;
+        }
+
+        /* ---------- HEADER INSTITUCIONAL ---------- */
+        header.institucional {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        
+        .logo {
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .header-texto h1 {
+            margin: 0;
+            font-size: 1.25em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header-texto p {
+            margin: 2px 0 0;
+            font-size: 0.85em;
+            opacity: 0.85;
+        }
+
+        /* ---------- NAVEGACIÓN ---------- */
+        nav.menu {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 40px;
+            display: flex;
+            gap: 8px;
+        }
+
+        nav.menu a {
+            padding: 14px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        nav.menu a:hover {
+            color: #2b6cb0;
+            background: #edf2f7;
+        }
+
+        nav.menu a.activo {
+            color: #2b6cb0;
+            border-bottom-color: #2b6cb0;
+        }
+
+        /* ---------- CONTENIDO ---------- */
+        main {
+            max-width: 720px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #1a365d;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 16px;
+            font-size: 0.9em;
+            color: #4a5568;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 6px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #2b6cb0;
+            box-shadow: 0 0 0 3px rgba(43,108,176,0.15);
+        }
+
+        .error {
+            color: #c53030;
+            font-size: 0.85em;
+            margin-top: 4px;
+        }
+
+        .btn {
+            margin-top: 24px;
+            padding: 12px 28px;
+            background: #2b6cb0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background: #2c5282; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 0.92em;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #edf2f7;
+            color: #1a365d;
+            font-weight: 600;
+        }
+
+        tr:hover td { background: #f7fafc; }
+
+        .vacio {
+            text-align: center;
+            color: #718096;
+            padding: 30px;
+            font-style: italic;
+        }
+
+        .datos-resultado p {
+            padding: 8px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            margin: 0;
+        }
+
+        .datos-resultado strong { color: #1a365d; }
+
+        footer {
+            text-align: center;
+            color: #a0aec0;
+            font-size: 0.85em;
+            padding: 30px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ HEADER INSTITUCIONAL ============ -->
+    <header class="institucional">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logoIfts18.svg') }}" alt="Logo IFTS 18">
+        </div>
+        <div class="header-texto">
+            <h1>IFTS N° 18</h1>
+            <p>Práctica Profesionalizante 3 · Flask + Jinja2</p>
+        </div>
+    </header>
+
+    <!-- ============ NAVEGACIÓN ============ -->
+    <nav class="menu">
+        <a href="{{ url_for('formulario') }}"
+           class="{% if request.endpoint == 'formulario' %}activo{% endif %}">
+           Registro
+        </a>
+        <a href="{{ url_for('listado') }}"
+           class="{% if request.endpoint == 'listado' %}activo{% endif %}">
+           Ver usuarios
+        </a>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL  -->
+    <main>
+        <div class="card">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- FOOTER  -->
+    <footer>
+        TP Flask con Jinja2 · 2026 · Hecho con Python 
+    </footer>
+
+</body>
+</html>
